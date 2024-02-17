@@ -236,3 +236,22 @@ footer {
         width: 100px;
     }
 }
+
+
+/*Because of js Stuff*/
+
+.chat-container {
+    min-width: 300px;
+    max-width: 400px;
+    /*This is for the typewritter.
+    Explanation: Initially, there will be no text in the chat-container and if we don't define a minimum width it will be weird
+    seeing the chat container have say 2px width initially and grow.. so we give it an initall minimum width .*/
+}
+
+
+/*
+label[for="input3"] {
+    display: none;
+}
+The above is just wow.. masterpiece css 😅😊
+Finally since CSS can't completely remove elements form page (logically) i had to remove it*/

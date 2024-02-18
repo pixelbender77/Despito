@@ -12,7 +12,7 @@
     --main-accent: #3290FB;
     --primary-text: #707070;
     --secondary-text: #B5B5B5;
-    --button-gradient: linear-gradient(to top right, var(--main-accent), #B84EBB);
+    --button-gradient: linear-gradient(to top right, #3290FB, #B84EBB);
 }
 
 * {

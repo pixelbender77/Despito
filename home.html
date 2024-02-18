@@ -10,13 +10,14 @@
 
 <body>
     <header id="navbar">
-        <img id="navbar-logo" src="assets/logo.png" alt="Despito Logo" />
+        <a href="home.html"><img id="navbar-logo" src="assets/logo.png" alt="Despito Logo" /></a>
+
         <ul>
             <li>
-                <a href="#">about</a>
+                <a href="about.html">about</a>
             </li>
             <li>
-                <a href="#">developer</a>
+                <a href="developer.html">developer</a>
             </li>
 
         </ul>
@@ -35,9 +36,12 @@
                 </div>
             </section>
             <form class="form" action="">
-                <label for="input1" id="label1">Name <input id="input1" type="text" placeholder="Enter your name" required></label>
-                <label for="input2" id="label2">Email <input id="input2" type="email" placeholder="Enter your email" required></label>
-                <button id="action-button" type="normal">Start</button>
+                <div class="inputs">
+                    <label for="input1" id="label1">Name <input id="input1" type="text" min="0" placeholder="Enter your name" required></label>
+                    <label for="input2" id="label2">Email <input id="input2" type="email" min="0" placeholder="Enter your email" required></label>
+                </div>
+
+                <button id="action-button" type="button">Start</button>
             </form>
 
         </div>

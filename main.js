@@ -1,21 +1,49 @@
-const form = document.querySelector(".form")
-const thirdInputField = `<label for="input3" id="label2" >Weight <input id="input3" type="number" placeholder="" required></label>
+const inputs = document.querySelector(".inputs")
+const thirdInputField = `<label for="input3" id="label3" >Weight <input id="input3" type="number" min="0" placeholder="" required></label>
 `;
 const input1 = document.getElementById("input1");
 const input2 = document.getElementById("input2");
-const input3 = document.getElementById("input3");
 const label1 = document.getElementById("label1");
 const label2 = document.getElementById("label2");
-const label3 = document.getElementById("label3");
+let label3;
+let input3;
 const chat_text = document.getElementById("chat-text");
 const actionButton = document.getElementById("action-button");
+
 let userEmail;
 let userName;
+let age;
+let height;
+let weight;
+let bmi = 0;
 //
 
+function calculateBMI(weight, height) {
+    // Convert height from centimeters to meters
+    height = height / 100;
 
-// typeWrite();
+    // Calculate BMI
+    bmi = weight / (height * height);
+}
 
+function giveResult() {
+    //getting the input elements once again since they were overwritten in the login function
+    let _input1 = document.getElementById("input1");
+    let _input2 = document.getElementById("input2");
+    let _input3 = document.getElementById("input3");
+    age = parseInt(_input1.value);
+    height = parseInt(_input2.value);
+    weight = parseInt(_input3.value);
+    //
+    calculateBMI(weight, height); //calculating and updating the bmi variable.
+    console.log(`Age: ${age} Height: ${height} Weight: ${weight} BMI: ${bmi} `);
+    chat_text.innerHTML = `Alright ${userName} , Your  <span class="emphasize">Body Mass Index is ${bmi.toFixed(1)}</span> .Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam itaque suscipit recusandndae eos sed, velit magni modi aut vero cupiditate deleniti eveniet!
+    `; //updating the text chat
+    typeWrite(); //type writing what has been updated
+    inputs.style.display = "none"; //removing input fields
+    actionButton.textContent = "Reset"; //updating the action button text
+    actionButton.onclick = resetForm; //updating the action button to reset the form
+}
 
 function login() {
     console.log("Checking entries");
@@ -25,25 +53,35 @@ function login() {
         userName = input1.value; //assigning input1 to userName variable
         userEmail = input2.value; //assigning input2 to userEmail variable
         // console.log(`Name: ${userName}  Email: ${userEmail}`);
+        //Storing variables in browser
+        localStorage.setItem("despito_userName", userName);
+        localStorage.setItem("despito_userEmail", userEmail);
 
-        //adding the third input field to the form
-        form.insertAdjacentHTML('beforeend', thirdInputField);
+        //adding the third input field to the inputs
+        inputs.insertAdjacentHTML('beforeend', thirdInputField);
+
+        label3 = document.getElementById("label3");
+        input3 = document.getElementById("input3");
+
 
         //updating the fields
         chat_text.textContent = `Welcome ${userName}, I am Desta and i am your Dietician 😊.Tell me abit about you and i'll give you some advice so you grow healthy. `;
         typeWrite(); //We typewrite the new chat_text.
 
+        label1.innerHTML = `Age       :<input id='input1' type='number' min="0" placeholder='What is your age?' required>
+        `; //updating the first label's content, type and placeholder values.
 
-        label1.textContent = "Age ";
-        input1.placeholder = "What is your age?";
-        input1.type = "number";
+        label2.innerHTML = `Height(cm):<input id='input2' type='number' min="0" placeholder='What is your Height?' required>`;
+        //updating the second label's content, type and placeholder values.
 
-        // label2.textContent = "Height(cm) ";
-        input2.placeholder = "What is your height?";
-        input2.type = "number";
+        label3.innerHTML = `Weight(kg):<input id='input3' type='number' min="0" placeholder='What is your Weight?' required>`;
+        //updating the second label's content, type and placeholder values.
 
-        label3.textContent = "Weight(Kg) ";
-        input3.placeholder = "What is your weight?";
+        // actionButtonFunction = giveResult;
+        //updating the function assigned to the action button to give the BMI result.
+        actionButton.innerText = "Continue";
+        actionButton.onclick = giveResult;
+        //updating the text of the button
 
     } else {
         console.log("You didn't enter anything");
@@ -52,8 +90,26 @@ function login() {
 
 }
 
+function resetForm() {
+    //reseting the text chat
+    location.reload(); //refresh the page.
+    chat_text.textContent = `welcome back ${userName} , I am Desta and i am your Dietician 😊.Tell me abit about you and i'
+    ll give you some advice so you grow healthy.
+    `; //setting a new welcome text 
+    typeWrite(); //typewriting the new
 
+    //reseting the variables
+    userEmail = "";
+    userName = "";
+    age = 0;
+    height = 0;
+    weight = 0;
+    bmi = 0;
+    //resetting action button
+    actionButton.textContent = "Start";
+    actionButton.onclick = login;
 
+}
 
 function typeWrite() {
     let splitedText = chat_text.textContent.split(''); //spliting the text in the chat_container character wise and storing it in a variable.
@@ -71,16 +127,14 @@ function typeWrite() {
     }, 20);
 }
 
+// === Start === 
+// typeWrite();
 
-
-
-
-
-
-
+// let actionButtonFunction = login; //Initially, the action button points to login. // old approach
+actionButton.onclick = login;
 
 //Buttons and Listeners
-actionButton.addEventListener("click", login);
+actionButton.addEventListener("click", actionButtonFunction);
 
 
 
@@ -132,3 +186,6 @@ function checkInput(page) {
 //     chat_text.innerText += splitedText[i]; // adding all the characters of the chat_text progressively . The typewritter effect.. giving that bot effect.
 // }   chat_text.innerText += splitedText[i]; // adding all the characters of the chat_text progressively . The typewritter effect.. giving that bot effect.
 // }
+
+//Problems
+//updating label element's textContent overwrites also it's whole content. In other words if there was say an input field nested in the label, it will be overwritten

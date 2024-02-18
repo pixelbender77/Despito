@@ -12,7 +12,7 @@
     --main-accent: #3290FB;
     --primary-text: #707070;
     --secondary-text: #B5B5B5;
-    --button-gradient: linear-gradient(to left, var(--main-accent), #B84EBB);
+    --button-gradient: linear-gradient(to top right, var(--main-accent), #B84EBB);
 }
 
 * {
@@ -91,6 +91,7 @@ main {
 
 .main-container {
     max-width: 960px;
+    min-height: 500px;
     /*defining maximum width of the container*/
     margin-inline: auto;
     /*vertical alignment*/
@@ -169,6 +170,16 @@ main {
     width: 100%;
 }
 
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+    /* background-color: #332135; */
+}
+
 .form label {
     color: #bebebe;
 }
@@ -202,14 +213,18 @@ main {
     font-size: 1.1rem;
     border: none;
     color: white;
-    background-color: var(--main-accent);
+    background: var(--button-gradient);
     padding: 2px;
     cursor: pointer;
 }
 
+#action-link {
+    align-self: flex-end;
+}
+
 #action-button:hover,
 #action-button:focus {
-    background: var(--button-gradient);
+    background: var(--main-accent)
 }
 
 
@@ -238,6 +253,25 @@ footer {
 }
 
 
+/*About page*/
+
+.title {
+    font-family: "Fredoka", serif;
+    font-size: 2rem;
+    align-self: flex-start;
+    margin-bottom: 20px;
+    color: var(--primary-text);
+}
+
+.content {
+    font-family: serif;
+    color: #a7a7a7;
+    text-align: justify;
+    line-height: 25px;
+    margin-bottom: 20px;
+}
+
+
 /*Because of js Stuff*/
 
 .chat-container {
@@ -246,6 +280,11 @@ footer {
     /*This is for the typewritter.
     Explanation: Initially, there will be no text in the chat-container and if we don't define a minimum width it will be weird
     seeing the chat container have say 2px width initially and grow.. so we give it an initall minimum width .*/
+}
+
+.emphasize {
+    font-family: sans-serif;
+    font-weight: bold;
 }
 
 

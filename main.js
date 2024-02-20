@@ -31,14 +31,51 @@ function giveResult() {
     let _input1 = document.getElementById("input1");
     let _input2 = document.getElementById("input2");
     let _input3 = document.getElementById("input3");
+    let advice_list = {
+        "underweight": `Exercise: Hey there! If you're feeling a bit on the lighter side, how about trying some fun strength exercises? Things like lifting weights or even bodyweight exercises can help you build up some muscle.<br>
+        Nutrition: I'd suggest focusing on foods that can help you gain a bit of healthy weight. You know, things like nuts, avocados, and whole grains can be your buddies here. <br>
+        Disease Risk: Just a friendly reminder, it's good to keep an eye on your health, especially if you're underweight. Regular check-ups can make sure everything's A-OK. <br>
+        Foods to Avoid: Ah, those tempting sugary snacks and processed foods might not be the best pals for you right now. Maybe stick to more nutritious options for a while. <br>`,
+
+        "normal": `Exercise: Hey friend! Keeping active is always a good idea. Why not take a stroll or dance around the house? Anything to keep that body moving! <br>
+        Nutrition: You're doing great with your weight, but it's still important to eat well. Load up on colorful fruits and veggies, and don't forget to treat yourself now and then.<br>
+        Disease Risk: Just a gentle nudge to keep up the good work! By staying healthy, you're lowering your risk of all sorts of pesky health issues.<br>
+        Foods to Avoid: Those sugary drinks and salty snacks might taste yummy, but they're not doing your body any favors. Maybe swap them out for some refreshing water or crunchy veggies?`,
+
+        "overweight": `Exercise: Hey, I'm here to support you! How about adding a bit more movement to your day? Whether it's a walk in the park or a dance party in your living room, every bit helps!<br>
+        Nutrition: Let's chat about making some tasty swaps in your diet. Think grilled chicken instead of fried, and maybe swap out that soda for some sparkling water with a splash of fruit juice.<br>
+        Disease Risk: Just a gentle reminder that carrying extra weight can up your risk for things like diabetes and heart disease. But hey, we're in this together, and small changes can make a big difference!<br>
+        Foods to Avoid: You know, those greasy fast-food meals and sugary treats might be tempting, but they're not doing your body any favors right now. How about exploring some healthier alternatives?`,
+
+        "obese": `Exercise: Hey, I'm here to cheer you on! Let's find some activities you enjoy that can help get that heart pumping. Maybe it's swimming, biking, or even just dancing around the house.<br>
+        Nutrition: Time to be besties with whole foods! Load up on colorful fruits and veggies, lean proteins, and healthy fats. Your body will thank you for it!<br>
+        Disease Risk: I'm here to remind you that your health matters. By taking small steps to shed some pounds, you're reducing your risk of serious health issues down the road.<br>
+        Foods to Avoid: Ah, those tempting fast-food meals and sugary snacks might be calling your name, but they're not doing your body any favors right now. How about exploring some delicious and nutritious options instead?`
+    };
+    let advice = ``;
+    let status = ``;
     age = parseInt(_input1.value);
     height = parseInt(_input2.value);
     weight = parseInt(_input3.value);
     //
     calculateBMI(weight, height); //calculating and updating the bmi variable.
     console.log(`Age: ${age} Height: ${height} Weight: ${weight} BMI: ${bmi} `);
-    chat_text.innerHTML = `Alright ${userName} , Your  <span class="emphasize">Body Mass Index is ${bmi.toFixed(1)}</span> .Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam itaque suscipit recusandndae eos sed, velit magni modi aut vero cupiditate deleniti eveniet!
-    `; //updating the text chat
+    if (bmi < 18.5) {
+        advice = advice_list["underweight"];
+        status = "Underweight";
+
+    } else if (bmi > 18.5 && bmi < 24.9) {
+        advice = advice_list["normal"];
+        status = "Normal ";
+    } else if (bmi > 24.9 && bmi < 29.9) {
+        advice = advice_list["overweight"];
+        status = "overweighted";
+
+    } else {
+        advice = advice_list["obese"];
+        status = "Obese";
+    }
+    chat_text.innerHTML = `Alright ${userName} 😊, Your  <span class="emphasize">Body Mass Index is ${bmi.toFixed(1)}</span> Following your age ${age}, You are ${status} . <br> these are some advice that may help you.<br> ${advice}. <br> Good luck! 😊 `; //updating the text chat
     typeWrite(); //type writing what has been updated
     inputs.style.display = "none"; //removing input fields
     actionButton.textContent = "Reset"; //updating the action button text
@@ -65,7 +102,7 @@ function login() {
 
 
         //updating the fields
-        chat_text.textContent = `Welcome ${userName}, I am Desta and i am your Dietician 😊.Tell me abit about you and i'll give you some advice so you grow healthy. `;
+        chat_text.textContent = `Welcome ${userName}, I am Desta and i am your Dietician 👩‍⚕️ 😊.Tell me abit about you and i'll give you some advice so you grow healthy. `;
         typeWrite(); //We typewrite the new chat_text.
 
         label1.innerHTML = `Age       :<input id='input1' type='number' min="0" placeholder='What is your age?' required>
@@ -128,7 +165,7 @@ function typeWrite() {
 }
 
 // === Start === 
-// typeWrite();
+typeWrite();
 
 // let actionButtonFunction = login; //Initially, the action button points to login. // old approach
 actionButton.onclick = login;
